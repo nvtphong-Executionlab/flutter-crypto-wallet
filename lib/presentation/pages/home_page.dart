@@ -1,8 +1,8 @@
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import 'balance_page.dart';
 import 'coin_list_page.dart';
@@ -22,8 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var deviceType = getDeviceType(size);
-    final isDesktop = (deviceType == DeviceScreenType.desktop) &&
-        ScreenUtil().orientation == Orientation.landscape;
+    final isDesktop = (deviceType == DeviceScreenType.desktop) && ScreenUtil().orientation == Orientation.landscape;
     return Scaffold(
       bottomNavigationBar: isDesktop
           ? null
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           ? CollapsibleSidebar(
               items: [
                 CollapsibleItem(
-                  text: 'Mis balances',
+                  text: 'Balance',
                   icon: Icons.home_filled,
                   onPressed: () {
                     setState(() {
@@ -49,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                   isSelected: _pos == 0,
                 ),
                 CollapsibleItem(
-                    text: 'Precios',
+                    text: 'Market',
                     icon: Icons.equalizer,
                     onPressed: () {
                       setState(() {
@@ -64,17 +63,13 @@ class _HomePageState extends State<HomePage> {
               ),
               avatarImg: const AssetImage('assets/profile.jpeg'),
               backgroundColor: Colors.white,
-              title: 'Josue Erazo',
-              selectedIconColor: const Color(0XFFF01FFB2),
-              selectedTextColor: const Color(0XFFF01FFB2),
+              title: 'Phong Nguyen',
+              selectedIconColor: const Color(0xFFF55050),
+              selectedTextColor: const Color(0xFFF55050),
               unselectedTextColor: Colors.black87,
-              textStyle: TextStyle(fontSize: 26.sp),
-              titleStyle: TextStyle(
-                  fontSize: 36.sp,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold),
-              toggleTitleStyle:
-                  TextStyle(fontSize: 32.sp, fontWeight: FontWeight.bold),
+              textStyle: TextStyle(fontSize: 10.sp),
+              titleStyle: TextStyle(fontSize: 10.sp, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+              toggleTitleStyle: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold),
             )
           : widget._pages[_pos],
     );
@@ -82,19 +77,16 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _BottomNavigationBar extends StatelessWidget {
-  const _BottomNavigationBar(
-      {Key? key, required this.onTap, this.initialPage = 0})
-      : super(key: key);
+  const _BottomNavigationBar({required this.onTap});
 
   final Function(int) onTap;
-  final int initialPage;
 
   @override
   Widget build(BuildContext context) {
     return ConvexAppBar(
         color: Colors.white,
         backgroundColor: Colors.white,
-        initialActiveIndex: initialPage,
+        initialActiveIndex: 0,
         items: const [
           TabItem(icon: Icon(Icons.home_filled)),
           TabItem(

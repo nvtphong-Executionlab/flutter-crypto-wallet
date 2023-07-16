@@ -1,17 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_crypto_wallet/application/coin_convert/coin_convert_notifier.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_crypto_wallet/application/coin_convert/coin_convert_provider.dart';
 import 'package:flutter_crypto_wallet/domain/coin.dart';
 import 'package:flutter_crypto_wallet/presentation/core/utils.dart';
 import 'package:flutter_crypto_wallet/presentation/core/widgets/image_coin.dart';
 import 'package:flutter_crypto_wallet/presentation/core/widgets/round_button.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../presentation/routes/router.gr.dart';
-
 import 'portafolio_page.dart';
 
 class ConvertPage extends ConsumerStatefulWidget {
@@ -39,9 +37,7 @@ class _ConvertPageState extends ConsumerState<ConvertPage> {
       return state.isLoading
           ? Scaffold(
               body: Center(
-                child: Container(
-                    color: Colors.white,
-                    child: const CircularProgressIndicator()),
+                child: Container(color: Colors.white, child: const CircularProgressIndicator()),
               ),
             )
           : Scaffold(
@@ -61,20 +57,14 @@ class _ConvertPageState extends ConsumerState<ConvertPage> {
                     Text('Convertir ${state.from!.name}',
                         maxLines: 1,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 36.sp,
-                            fontWeight: FontWeight.bold)),
+                        style: TextStyle(color: Colors.black, fontSize: 36.sp, fontWeight: FontWeight.bold)),
                     SizedBox(
                       height: 5.h,
                     ),
                     Text(msg1,
                         maxLines: 1,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 32.sp,
-                            fontWeight: FontWeight.normal)),
+                        style: TextStyle(color: Colors.black54, fontSize: 32.sp, fontWeight: FontWeight.normal)),
                   ],
                 ),
               ),
@@ -89,15 +79,11 @@ class _ConvertPageState extends ConsumerState<ConvertPage> {
                       BounceInLeft(
                         from: 50,
                         manualTrigger: true,
-                        controller: (controller) =>
-                            animateController = controller,
+                        controller: (controller) => animateController = controller,
                         child: Text('\$${state.amount}',
                             maxLines: 1,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: _color,
-                                fontSize: 126.sp,
-                                fontWeight: FontWeight.normal)),
+                            style: TextStyle(color: _color, fontSize: 126.sp, fontWeight: FontWeight.normal)),
                       ),
                       SizedBox(
                         height: 15.h,
@@ -107,23 +93,18 @@ class _ConvertPageState extends ConsumerState<ConvertPage> {
                               () =>
                                   // ignore: prefer_interpolation_to_compose_strings
                                   'Tienes ' +
-                                  Utils.getCoinAmount(
-                                      state.from!.amount!, state.from!.symbol) +
+                                  Utils.getCoinAmount(state.from!.amount!, state.from!.symbol) +
                                   ' disponible.', (validation) {
                             animateController.repeat();
                             return validation.map(
                                 empty: (_) => 'Ingrese una cantidad mayor',
                                 invalid: (_) =>
                                     // ignore: prefer_interpolation_to_compose_strings
-                                    'No tienes suficientes ' +
-                                    state.from!.symbol.toUpperCase());
+                                    'No tienes suficientes ' + state.from!.symbol.toUpperCase());
                           }),
                           maxLines: 1,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 32.sp,
-                              fontWeight: FontWeight.normal)),
+                          style: TextStyle(color: Colors.black54, fontSize: 32.sp, fontWeight: FontWeight.normal)),
                       SizedBox(height: 110.h),
                       _ExchangeCoin(
                         from: state.from!,
@@ -139,9 +120,7 @@ class _ConvertPageState extends ConsumerState<ConvertPage> {
                       RoundButton(
                         text: 'Previsualizar Conversión',
                         onTap: () {
-                          ref
-                              .read(coinConvertNotifierProvider.notifier)
-                              .validate();
+                          ref.read(coinConvertNotifierProvider.notifier).validate();
                         },
                       ),
                     ],
@@ -154,8 +133,7 @@ class _ConvertPageState extends ConsumerState<ConvertPage> {
 }
 
 class _ExchangeCoin extends ConsumerWidget {
-  const _ExchangeCoin({Key? key, required this.from, required this.to})
-      : super(key: key);
+  const _ExchangeCoin({Key? key, required this.from, required this.to}) : super(key: key);
 
   final Coin from, to;
 
@@ -230,10 +208,7 @@ class _ExchangeCoin extends ConsumerWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => PortafolioPage(
-                          isPortafolio: false,
-                          selected: state.to!,
-                          oppositeCoin: state.from!,
-                          coins: state.all!)));
+                          isPortafolio: false, selected: state.to!, oppositeCoin: state.from!, coins: state.all!)));
             },
             child: Row(
               children: [
@@ -258,12 +233,7 @@ class _ExchangeCoin extends ConsumerWidget {
 }
 
 class _CoinColum extends StatelessWidget {
-  const _CoinColum(
-      {Key? key,
-      required this.title,
-      required this.subtitle,
-      required this.aligment})
-      : super(key: key);
+  const _CoinColum({Key? key, required this.title, required this.subtitle, required this.aligment}) : super(key: key);
 
   final String title, subtitle;
   final CrossAxisAlignment aligment;
@@ -276,20 +246,14 @@ class _CoinColum extends StatelessWidget {
         Text(title,
             maxLines: 1,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.black54,
-                fontSize: 28.sp,
-                fontWeight: FontWeight.normal)),
+            style: TextStyle(color: Colors.black54, fontSize: 28.sp, fontWeight: FontWeight.normal)),
         SizedBox(
           height: 5.h,
         ),
         Text(subtitle.toUpperCase(),
             maxLines: 1,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 32.sp,
-                fontWeight: FontWeight.normal)),
+            style: TextStyle(color: Colors.black, fontSize: 32.sp, fontWeight: FontWeight.normal)),
       ],
     );
   }
@@ -328,31 +292,21 @@ class _Keyboard extends ConsumerWidget {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      ref
-                          .read(coinConvertNotifierProvider.notifier)
-                          .onKeyboardTap('.');
+                      ref.read(coinConvertNotifierProvider.notifier).onKeyboardTap('.');
                     },
                     child: Text('.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 66.sp,
-                            fontWeight: FontWeight.normal)),
+                        style: TextStyle(color: Colors.black87, fontSize: 66.sp, fontWeight: FontWeight.normal)),
                   ),
                 ),
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      ref
-                          .read(coinConvertNotifierProvider.notifier)
-                          .onKeyboardTap('0');
+                      ref.read(coinConvertNotifierProvider.notifier).onKeyboardTap('0');
                     },
                     child: Text('0',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 66.sp,
-                            fontWeight: FontWeight.normal)),
+                        style: TextStyle(color: Colors.black87, fontSize: 66.sp, fontWeight: FontWeight.normal)),
                   ),
                 ),
                 Expanded(
@@ -363,9 +317,7 @@ class _Keyboard extends ConsumerWidget {
                           color: Colors.black87,
                         ),
                         onPressed: () {
-                          ref
-                              .read(coinConvertNotifierProvider.notifier)
-                              .onKeyboardDelete();
+                          ref.read(coinConvertNotifierProvider.notifier).onKeyboardDelete();
                         })),
               ],
             ),
@@ -377,8 +329,7 @@ class _Keyboard extends ConsumerWidget {
 }
 
 class _KeyboardRow extends ConsumerWidget {
-  const _KeyboardRow({Key? key, required this.start, required this.end})
-      : super(key: key);
+  const _KeyboardRow({Key? key, required this.start, required this.end}) : super(key: key);
   final int start, end;
 
   @override
@@ -389,16 +340,11 @@ class _KeyboardRow extends ConsumerWidget {
           Expanded(
             child: InkWell(
               onTap: () {
-                ref
-                    .read(coinConvertNotifierProvider.notifier)
-                    .onKeyboardTap(i.toString());
+                ref.read(coinConvertNotifierProvider.notifier).onKeyboardTap(i.toString());
               },
               child: Text(i.toString(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 66.sp,
-                      fontWeight: FontWeight.normal)),
+                  style: TextStyle(color: Colors.black87, fontSize: 66.sp, fontWeight: FontWeight.normal)),
             ),
           ),
       ],

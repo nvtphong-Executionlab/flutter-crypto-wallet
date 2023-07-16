@@ -1,13 +1,12 @@
-import 'package:flutter_crypto_wallet/domain/coin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_crypto_wallet/domain/coin.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils.dart';
 import 'image_coin.dart';
 
 class CoinItem extends StatelessWidget {
-  const CoinItem(
-      {Key? key, required Coin coin, isPortafolio = false, VoidCallback? onTap})
+  const CoinItem({Key? key, required Coin coin, isPortafolio = false, VoidCallback? onTap})
       : _coin = coin,
         _onTap = onTap,
         _isPortafolio = isPortafolio,
@@ -19,13 +18,8 @@ class CoinItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-      decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-        color: Colors.grey.shade200,
-      ))),
       child: ListTile(
         onTap: _onTap,
         leading: ImageCoin(
@@ -33,11 +27,9 @@ class CoinItem extends StatelessWidget {
         ),
         title: Text(
           _coin.name,
-          style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
         ),
-        subtitle: !_isPortafolio
-            ? Text(_coin.symbol, style: TextStyle(fontSize: 28.sp))
-            : null,
+        subtitle: !_isPortafolio ? Text(_coin.symbol.toUpperCase(), style: TextStyle(fontSize: 12.sp)) : null,
         trailing: FittedBox(
           fit: BoxFit.scaleDown,
           child: !_isPortafolio
@@ -45,9 +37,7 @@ class CoinItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('\$${_coin.currentPrice}',
-                        style: TextStyle(
-                            fontSize: 28.sp, fontWeight: FontWeight.w500)),
+                    Text('\$${_coin.currentPrice}', style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w500)),
                     _PriceVariation(price: _coin.priceChange),
                   ],
                 )
@@ -56,13 +46,9 @@ class CoinItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(Utils.getPrice(_coin.dollars!),
-                        style: TextStyle(
-                            fontSize: 28.sp, fontWeight: FontWeight.w500)),
+                        style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w500)),
                     Text(Utils.getCoinAmount(_coin.amount!, _coin.symbol),
-                        style: TextStyle(
-                            fontSize: 28.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black54)),
+                        style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w500, color: Colors.black54)),
                   ],
                 ),
         ),
@@ -79,11 +65,9 @@ class _PriceVariation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(Utils.getPriceChange(_price),
+    return Text('${Utils.getPriceChange(_price)}%',
         textAlign: TextAlign.end,
         style: TextStyle(
-            fontSize: 28.sp,
-            fontWeight: FontWeight.w500,
-            color: _price >= 0 ? Colors.green : Colors.redAccent));
+            fontSize: 28.sp, fontWeight: FontWeight.w500, color: _price >= 0 ? Colors.green : Colors.redAccent));
   }
 }
